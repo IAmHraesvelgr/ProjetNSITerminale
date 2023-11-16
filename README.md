@@ -1,1 +1,1 @@
-# ProjetNSITerminale
+# Projet de Spécialité Numérique et Sciences Informatiques de Classe de Terminale
