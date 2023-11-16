@@ -1,5 +1,4 @@
-def main() -> None:
-    print("Hi, mom !")
+from App import *
 
-if __name__ == '__main__':
-    main()
+def main():
+    App.new()
