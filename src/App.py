@@ -1,11 +1,10 @@
 import customtkinter
 import tkinter
-import datetime
-# https://stackoverflow.com/questions/24374620/python-loop-to-run-for-certain-amount-of-seconds
+# https://stackoverflow.com/questions/68784493/show-text-or-button-for-specific-time-in-tkinter
 
 class App:
     def __init__(self) -> None:
-       pass
+        pass
 
     @staticmethod
     def new() -> None:
@@ -14,5 +13,4 @@ class App:
         app.geometry("1080x720")
         app.title("Projet NSI Terminale")
         app.resizable(False, False)
-        
-        app.mainloop()
+        app.mainloop()        
