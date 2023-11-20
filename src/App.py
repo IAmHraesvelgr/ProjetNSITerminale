@@ -3,8 +3,6 @@ import tkinter
 # https://stackoverflow.com/questions/68784493/show-text-or-button-for-specific-time-in-tkinter
 
 class App:
-    def __init__(self) -> None:
-        pass
 
     @staticmethod
     def new(title, size) -> None:
@@ -16,6 +14,10 @@ class App:
         app.title(App.title)
         app.geometry(App.size)
         app.resizable(False, False)
+
+        inputLabel = customtkinter.CTkLabel(app, font=customtkinter.CTkFont("Arial", 18, 'bold'), text="Entrez la grille de Sudoku à résoudre : ")
+        inputLabel.pack(pady=15)
+
         app.mainloop()   
 
     @staticmethod
