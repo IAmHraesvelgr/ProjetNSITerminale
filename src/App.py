@@ -9,10 +9,10 @@ class App:
 
     @staticmethod
     def createGrid(app) -> None:
-        for column in range(3):
-            for row in range(3):
-                inputField = customtkinter.CTkEntry(app, width=100, height=100, font=customtkinter.CTkFont("Arial", 50, 'bold')) 
-                inputField.grid(row=row, column=column)  
+        for column in range(9):
+            for row in range(9):
+                inputField = customtkinter.CTkEntry(app, width=75, height=75, font=customtkinter.CTkFont("Arial", 50, 'bold'))
+                inputField.grid(row=row, column=column)
 
     @staticmethod
     def new(title, width, height) -> None:
@@ -29,9 +29,9 @@ class App:
         app.resizable(False, False)
 
         inputLabel = customtkinter.CTkLabel(app, font=customtkinter.CTkFont("Arial", 25, 'bold'), text="Entrez la grille de Sudoku à résoudre : ")  
-        
+    
         App.createGrid(gridPanel)
 
         inputLabel.pack(pady=15)
-        gridPanel.pack()
+        gridPanel.pack(pady=100)
         app.mainloop()
