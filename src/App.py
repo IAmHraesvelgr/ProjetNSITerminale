@@ -8,17 +8,17 @@ class App:
         pass
 
     @staticmethod
-    def createGrid(app) -> None:
-        for column in range(9):
+    def createGrid(panel) -> None:
+        """for column in range(9):
             for row in range(9):
-                inputField = customtkinter.CTkEntry(app, width=75, height=75, font=customtkinter.CTkFont("Arial", 50, 'bold'))
-                inputField.grid(row=row, column=column)
+                inputField = customtkinter.CTkEntry(panel, width=70, height=70, font=customtkinter.CTkFont("Arial", 50, 'bold'))
+                inputField.grid(row=row, column=column)"""
+        pass
 
     @staticmethod
     def new(title, width, height) -> None:
 
         app = customtkinter.CTk()
-        gridPanel = customtkinter.CTkFrame(master=app)
 
         App.title = title
         App.width = width
@@ -30,8 +30,7 @@ class App:
 
         inputLabel = customtkinter.CTkLabel(app, font=customtkinter.CTkFont("Arial", 25, 'bold'), text="Entrez la grille de Sudoku à résoudre : ")  
     
-        App.createGrid(gridPanel)
+        App.createGrid(app)
 
         inputLabel.pack(pady=15)
-        gridPanel.pack(pady=100)
         app.mainloop()
