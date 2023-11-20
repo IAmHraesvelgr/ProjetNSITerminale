@@ -4,22 +4,31 @@ import tkinter
 
 class App:
 
+    def __init__(self) -> None:
+        pass
+
     @staticmethod
-    def new(title, size) -> None:
+    def createGrid(app) -> None:
+        for column in range(3):
+            for row in range(3):
+                inputField = customtkinter.CTkEntry(app, width=3, height=3) 
+                inputField.grid()  
+
+    @staticmethod
+    def new(title, width, height) -> None:
+
         app = customtkinter.CTk()
 
         App.title = title
-        App.size = size
+        App.width = width
+        App.height = height
         
+        app.minsize(App.width, App.height)
         app.title(App.title)
-        app.geometry(App.size)
         app.resizable(False, False)
 
         inputLabel = customtkinter.CTkLabel(app, font=customtkinter.CTkFont("Arial", 18, 'bold'), text="Entrez la grille de Sudoku à résoudre : ")
-        inputLabel.pack(pady=15)
+        inputLabel.pack(pady=15)  
 
-        app.mainloop()   
-
-    @staticmethod
-    def createGrid():
-        pass     
+        # App.createGrid(app)
+        app.mainloop()
