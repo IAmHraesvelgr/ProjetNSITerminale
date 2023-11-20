@@ -7,10 +7,17 @@ class App:
         pass
 
     @staticmethod
-    def new() -> None:
+    def new(title, size) -> None:
         app = customtkinter.CTk()
+
+        App.title = title
+        App.size = size
         
-        app.geometry("1080x720")
-        app.title("Projet NSI Terminale")
+        app.title(App.title)
+        app.geometry(App.size)
         app.resizable(False, False)
-        app.mainloop()        
+        app.mainloop()   
+
+    @staticmethod
+    def createGrid():
+        pass     
