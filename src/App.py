@@ -12,7 +12,7 @@ class App:
         for column in range(9):
             for row in range(9):
                 inputField = customtkinter.CTkEntry(panel, width=70, height=70, font=customtkinter.CTkFont("Arial", 50, 'bold'))
-                inputField.grid(row=row, column=column)
+                inputField.grid(row=row, column=column, padx=5 if row % 3 == 0 else 0, pady=5 if column % 3 == 0 else 0)
 
     @staticmethod
     def new(title, width, height) -> None:
@@ -34,4 +34,5 @@ class App:
 
         inputLabel.pack(pady=15)
         gridPanel.pack(pady=50)
+
         app.mainloop()
