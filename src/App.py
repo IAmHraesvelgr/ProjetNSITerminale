@@ -9,10 +9,10 @@ class App:
 
     @staticmethod
     def createGrid(panel) -> None:
-        for column in range(9):
-            for row in range(9):
+        for column in range(1, 10):
+            for row in range(1, 10):
                 inputField = customtkinter.CTkEntry(panel, width=70, height=70, font=customtkinter.CTkFont("Arial", 50, 'bold'))
-                inputField.grid(row=row, column=column, padx=5 if row % 3 == 0 else 0, pady=5 if column % 3 == 0 else 0)
+                inputField.grid(row=row, column=column, padx=5 if row % 3 else 0, pady=5 if column % 3 == 0 else 0)
 
     @staticmethod
     def new(title, width, height) -> None:
