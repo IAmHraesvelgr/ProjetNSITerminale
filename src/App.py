@@ -1,18 +1,25 @@
 import customtkinter
-import tkinter
-# https://stackoverflow.com/questions/68784493/show-text-or-button-for-specific-time-in-tkinter
 
+"""
+return 10 if colonne - 1 == 3 or colonne == 6 or colonne - 1 == 9 else 0
+return 10 if ligne -1 == 3 or ligne == 6 or ligne - 1 == 9 else 0
+"""
 class App:
 
     def __init__(self) -> None:
         pass
 
     @staticmethod
+    def gridPadding(padding) -> int:
+        return 10 if padding -1 == 3 or padding == 6 or padding - 1 == 9 else 0
+
+    @staticmethod
     def createGrid(panel) -> None:
-        for column in range(1, 10):
-            for row in range(1, 10):
-                inputField = customtkinter.CTkEntry(panel, width=70, height=70, font=customtkinter.CTkFont("Arial", 50, 'bold'))
-                inputField.grid(row=row, column=column, padx=5 if row % 3 else 0, pady=5 if column % 3 == 0 else 0)
+        for ligne in range(1, 10):
+            for colonne in range(1, 10):
+                inputField = customtkinter.CTkEntry(panel, width=70, height=70, font=customtkinter.CTkFont("Arial", 50, 'bold'), border_width=2.5, corner_radius=0)
+                inputField.grid(row=ligne, column=colonne, pady=App.gridPadding(ligne), padx=App.gridPadding(colonne))
+        
 
     @staticmethod
     def new(title, width, height) -> None:
