@@ -17,8 +17,7 @@ class App:
     def createGrid(panel) -> None:
         for ligne in range(1, 10):
             for colonne in range(1, 10):
-                inputField = customtkinter.CTkEntry(panel, width=70, height=70, font=customtkinter.CTkFont("Arial", 50, 'bold'), border_width=2.5, corner_radius=0)
-                inputField.grid(row=ligne, column=colonne, pady=App.gridPadding(ligne), padx=App.gridPadding(colonne))
+                inputField = customtkinter.CTkEntry(panel, width=70, height=70, font=customtkinter.CTkFont("Arial", 50, 'bold'), border_width=2.5, corner_radius=0).grid(row=ligne, column=colonne, pady=App.gridPadding(ligne), padx=App.gridPadding(colonne))
         
 
     @staticmethod
