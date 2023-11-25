@@ -11,11 +11,11 @@ class App:
 
     @staticmethod
     def gridPaddingX(column) -> int:
-        return 10 if (column - 1 == 3 or column + 3 == 9) else 0
+        return 10 if column - 1 == 3 or column + 3 == 9 else 0
     
     @staticmethod
     def gridPaddingY(row) -> int:
-        return 10 if (row - 1 == 3 or row + 3 == 9) else 0 
+        return 10 if row - 1 == 3 or row + 3 == 9 else 0 
 
     @staticmethod
     def createGrid(panel) -> None:
