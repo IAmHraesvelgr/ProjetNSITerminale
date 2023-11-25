@@ -10,14 +10,24 @@ class App:
         pass
 
     @staticmethod
-    def gridPadding(padding) -> int:
-        return 10 if padding -1 == 3 or padding == 6 or padding - 1 == 9 else 0
+    def gridPaddingX(column) -> int:
+        return 10 if (column - 1 == 3 or column + 3 == 9) else 0
+    
+    @staticmethod
+    def gridPaddingY(row) -> int:
+        return 10 if (row - 1 == 3 or row + 3 == 9) else 0 
 
     @staticmethod
     def createGrid(panel) -> None:
+        global input
+        input = []
+        
         for ligne in range(1, 10):
             for colonne in range(1, 10):
-                inputField = customtkinter.CTkEntry(panel, width=70, height=70, font=customtkinter.CTkFont("Arial", 50, 'bold'), border_width=2.5, corner_radius=0).grid(row=ligne, column=colonne, pady=App.gridPadding(ligne), padx=App.gridPadding(colonne))
+                inputField = customtkinter.CTkEntry(panel, width=70, height=70, font=customtkinter.CTkFont("Arial", 50, 'bold'), border_width=2.5, corner_radius=0).grid(row=ligne, column=colonne, padx=App.gridPaddingX(colonne), pady=App.gridPaddingY(ligne))
+
+                input.append(inputField)
+                print(f"Row : {ligne}\nColomn : {colonne}\n")
         
 
     @staticmethod
