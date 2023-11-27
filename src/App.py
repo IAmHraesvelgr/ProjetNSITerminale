@@ -10,10 +10,6 @@ class App:
         pass
 
     @staticmethod
-    def gridPadding(padding) -> int:
-        return 10 if padding - 1 == 3 or padding + 3 == 9 else 0
-
-    @staticmethod
     def createGrid(panel) -> None:
         App.entries = []
         
@@ -40,7 +36,7 @@ class App:
 
         app = customtkinter.CTk()
         gridPanel = customtkinter.CTkFrame(app)
-        resolveGrid = customtkinter.CTkButton(app, text="Résoudre la Grille", width=300, height=50, font=customtkinter.CTkFont("Helvetica", 25, 'bold'), command=resolveGrid)
+        resolveGrid = customtkinter.CTkButton(app, text="Résoudre la Grille", width=300, height=50, font=customtkinter.CTkFont("Helvetica", 25, 'bold'), command=App.resolveGrid)
 
         App.title = title
         App.width = width
