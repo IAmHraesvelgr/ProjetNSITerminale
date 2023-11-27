@@ -1,9 +1,5 @@
 import customtkinter
 
-"""
-return 10 if colonne - 1 == 3 or colonne == 6 or colonne - 1 == 9 else 0
-return 10 if ligne -1 == 3 or ligne == 6 or ligne - 1 == 9 else 0
-"""
 class App:
 
     def __init__(self) -> None:
@@ -11,7 +7,7 @@ class App:
 
     @staticmethod
     def gridPadding(padding) -> int:
-        return 10 if padding -1 == 3 or padding == 6 or padding - 1 == 9 else 0
+        return 10 if (padding + 1) % 3 == 0 else 0
 
     @staticmethod
     def createGrid(panel) -> None:
