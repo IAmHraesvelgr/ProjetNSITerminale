@@ -37,7 +37,7 @@ class App:
 
         app = customtkinter.CTk()
         gridPanel = customtkinter.CTkFrame(app, bg_color="transparent")
-        resolveGrid = customtkinter.CTkButton(app, text="Résoudre la Grille", corner_radius=32, fg_color="#0e6ae3", hover_color="#b91fd1", width=300, height=50, font=customtkinter.CTkFont("Helvetica", 25,'bold'), command=App.resolveGrid)
+        resolveGrid = customtkinter.CTkButton(app, text="Résoudre la Grille", corner_radius=32, width=300, height=50, font=customtkinter.CTkFont("Helvetica", 25,'bold'), command=App.resolveGrid)
 
         App.title = title
         App.width = width
