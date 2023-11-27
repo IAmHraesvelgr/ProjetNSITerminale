@@ -35,7 +35,7 @@ class App:
     def new(title, width, height) -> None:
 
         app = customtkinter.CTk()
-        gridPanel = customtkinter.CTkFrame(app)
+        gridPanel = customtkinter.CTkFrame(app, bg_color="transparent")
         resolveGrid = customtkinter.CTkButton(app, text="Résoudre la Grille", width=300, height=50, font=customtkinter.CTkFont("Helvetica", 25, 'bold'), command=App.resolveGrid)
 
         App.title = title
