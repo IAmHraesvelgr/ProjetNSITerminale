@@ -4,10 +4,14 @@ class App:
 
     def __init__(self) -> None:
         pass
-
+    
     @staticmethod
-    def gridPadding(padding) -> int:
-        return 10 if (padding + 1) % 3 == 0 else 0
+    def gridPaddingX(column) -> int:
+        return 10 if column - 1 == 3 or column + 3 == 9 else 0
+    
+    @staticmethod
+    def gridPaddingY(row) -> int:
+        return 10 if row - 1 == 3 or row + 3 == 9 else 0 
 
     @staticmethod
     def createGrid(panel) -> None:
