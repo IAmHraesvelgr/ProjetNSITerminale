@@ -7,15 +7,15 @@ class App:
 
     @staticmethod
     def gridPadding(padding) -> int:
-        return 10 if (padding + 1) % 3 == 0 else 0
+        return 10 if padding - 1 == 3 or padding + 3 == 9 else 0
 
     @staticmethod
     def createGrid(panel) -> None:
         global input
         input = []
         
-        for row in range(0, 9):
-            for column in range(0, 9):
+        for row in range(1, 10):
+            for column in range(1, 10):
                 inputField = customtkinter.CTkEntry(panel, width=70, height=70, font=customtkinter.CTkFont("Arial", 50, 'bold'), border_width=2.5, corner_radius=0).grid(row=row, column=column, padx=App.gridPadding(column), pady=App.gridPadding(row))
 
                 input.append(inputField)
