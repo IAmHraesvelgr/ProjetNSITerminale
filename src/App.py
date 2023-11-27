@@ -1,3 +1,4 @@
+import tkinter
 import customtkinter
 
 class App:
@@ -15,7 +16,7 @@ class App:
         
         for row in range(9):
             for column in range(9):
-                entry = customtkinter.CTkEntry(panel, width=60, height=60, font=customtkinter.CTkFont("Arial", 50, 'bold'), border_width=2.5, corner_radius=0, justify="center")
+                entry = customtkinter.CTkEntry(panel, width=55, height=55, font=customtkinter.CTkFont("Helvetica", 50, 'bold'), border_width=2.5, corner_radius=0, justify="center")
             
                 pad_x = (0, 0)
                 pad_y = (0, 0)
@@ -36,7 +37,7 @@ class App:
 
         app = customtkinter.CTk()
         gridPanel = customtkinter.CTkFrame(app, bg_color="transparent")
-        resolveGrid = customtkinter.CTkButton(app, text="Résoudre la Grille", width=300, height=50, font=customtkinter.CTkFont("Helvetica", 25, 'bold'), command=App.resolveGrid)
+        resolveGrid = customtkinter.CTkButton(app, text="Résoudre la Grille", corner_radius=32, fg_color="#4158D0", hover_color="#C850C0", width=300, height=50, font=customtkinter.CTkFont("Helvetica", 25,'bold'), command=App.resolveGrid)
 
         App.title = title
         App.width = width
@@ -46,12 +47,13 @@ class App:
         app.title(App.title)
         app.resizable(False, False)
 
-        inputLabel = customtkinter.CTkLabel(app, font=customtkinter.CTkFont("Arial", 25, 'bold'), text="Entrez la grille de Sudoku à résoudre : ")  
+        inputLabel = customtkinter.CTkLabel(app, font=customtkinter.CTkFont("Helvetica", 25, 'bold'), text="Entrez la grille de Sudoku à résoudre : ")  
     
         App.createGrid(gridPanel)
 
         inputLabel.pack(pady=15)
         gridPanel.pack(pady=35)
-        resolveGrid.pack(pady=25, side=customtkinter.BOTTOM)
+
+        resolveGrid.pack(pady=20, side=customtkinter.BOTTOM)
 
         app.mainloop()
