@@ -16,7 +16,7 @@ class App:
         
         for row in range(9):
             for column in range(9):
-                entry = customtkinter.CTkEntry(panel, width=70, height=70, font=customtkinter.CTkFont("Arial", 50, 'bold'), border_width=2.5, corner_radius=0, justify="center")
+                entry = customtkinter.CTkEntry(panel, width=60, height=60, font=customtkinter.CTkFont("Arial", 50, 'bold'), border_width=2.5, corner_radius=0, justify="center")
             
                 pad_x = (0, 0)
                 pad_y = (0, 0)
