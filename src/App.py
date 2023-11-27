@@ -6,13 +6,16 @@ class App:
         pass
 
     @staticmethod
+    def resolveGrid() -> None:
+        pass
+
+    @staticmethod
     def gridPadding(padding) -> int:
         return 10 if padding - 1 == 3 or padding + 3 == 9 else 0
 
     @staticmethod
     def createGrid(panel) -> None:
-        global entries
-        entries = []
+        App.entries = []
         
         for row in range(9):
             for column in range(9):
@@ -29,7 +32,7 @@ class App:
 
                 entry.grid(row=row, column=column, ipadx=5, ipady=5, padx=pad_x, pady=pad_y)
 
-                entries.append(entry)
+                App.entries.append(entry)
         
 
     @staticmethod
@@ -37,6 +40,7 @@ class App:
 
         app = customtkinter.CTk()
         gridPanel = customtkinter.CTkFrame(app)
+        resolveGrid = customtkinter.CTkButton(app, text="Résoudre la Grille", width=300, height=50, font=customtkinter.CTkFont("Helvetica", 25, 'bold'), command=resolveGrid)
 
         App.title = title
         App.width = width
@@ -51,6 +55,7 @@ class App:
         App.createGrid(gridPanel)
 
         inputLabel.pack(pady=15)
-        gridPanel.pack(pady=50)
+        gridPanel.pack(pady=35)
+        resolveGrid.pack(pady=25, side=customtkinter.BOTTOM)
 
         app.mainloop()
