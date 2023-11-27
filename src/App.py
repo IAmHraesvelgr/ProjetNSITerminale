@@ -11,15 +11,25 @@ class App:
 
     @staticmethod
     def createGrid(panel) -> None:
-        global input
-        input = []
+        global entries
+        entries = []
         
-        for row in range(1, 10):
-            for column in range(1, 10):
-                inputField = customtkinter.CTkEntry(panel, width=70, height=70, font=customtkinter.CTkFont("Arial", 50, 'bold'), border_width=2.5, corner_radius=0).grid(row=row, column=column, padx=App.gridPadding(column), pady=App.gridPadding(row))
+        for row in range(9):
+            for column in range(9):
+                entry = customtkinter.CTkEntry(panel, width=70, height=70, font=customtkinter.CTkFont("Arial", 50, 'bold'), border_width=2.5, corner_radius=0, placeholder_text=0, justify="center")
+            
+                pad_y = (0, 0)
+                pad_x = (0, 0)
+            
+                if (row + 1) % 3 == 0 and (row + 1) < 9:
+                    pad_y = (0, 10)
+                
+                if (column + 1) % 3 == 0 and (column + 1) < 9:
+                    pad_x = (0, 10)
 
-                input.append(inputField)
-                print(f"Row : {row}\nColomn : {column}\n")
+                entry.grid(row=row, column=column, ipadx=5, ipady=5, padx=pad_x, pady=pad_y)
+
+                entries.append(entry)
         
 
     @staticmethod
