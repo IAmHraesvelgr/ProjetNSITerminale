@@ -9,18 +9,14 @@ class App:
         pass    
 
     @staticmethod
-    def playBackgroundMusic(playMusic: int) -> None:
+    def playBackgroundMusic(playMusic: customtkinter.IntVar) -> None:
         pygame.mixer.init()
         pygame.mixer.music.load("../resources/backgroundmusic.mp3")
-        if playMusic == 1:
+        if playMusic.get():
             pygame.mixer.music.play(-1)
-            print("Playing Music")
+            pygame.mixer.music.set_volume(0.3)
         else:
-            try:
-                pygame.mixer.music.stop()
-                print("Stoping Music")
-            except:
-                pass
+            pygame.mixer.music.stop()
 
 
     @staticmethod
@@ -61,8 +57,9 @@ class App:
         gridPanel: customtkinter.CTkFrame = customtkinter.CTkFrame(app, bg_color="transparent")
         resolveGrid: customtkinter.CTkButton = customtkinter.CTkButton(app, text="Résoudre la Grille", corner_radius=32, width=300, height=50, font=App.font, command=App.resolveGrid)
         
-        playMusic: customtkinter.IntVar = customtkinter.IntVar(app, 0)
-        musicButton: customtkinter.CTkCheckBox = customtkinter.CTkCheckBox(app, text="Musique", onvalue=1, offvalue=0, variable=playMusic, command=App.playBackgroundMusic(playMusic.get()))
+        playMusic: customtkinter.IntVar = customtkinter.IntVar(app, 1)
+        App.playBackgroundMusic(playMusic)
+        musicButton: customtkinter.CTkCheckBox = customtkinter.CTkCheckBox(app, text="Musique", onvalue=1, offvalue=0, variable=playMusic, command=lambda shouldPlayMusic=playMusic: App.playBackgroundMusic(shouldPlayMusic))
 
         App.title: int = title
         App.width: int = width
