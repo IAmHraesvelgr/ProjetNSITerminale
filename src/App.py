@@ -1,3 +1,4 @@
+import os
 import tkinter
 import customtkinter
 
@@ -59,5 +60,9 @@ class App:
         gridPanel.pack(pady=35)
 
         resolveGrid.pack(pady=20, side=customtkinter.BOTTOM)
+
+        if os.name == "nt":
+            import pywinstyles
+            pywinstyles.apply_style(app, "optimised")
 
         app.mainloop()
