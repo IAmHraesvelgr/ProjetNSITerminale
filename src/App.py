@@ -15,15 +15,15 @@ class App:
         App.checkGrid()
 
     @staticmethod
-    def createGrid(panel) -> None:
-        App.entries = []
+    def createGrid(panel: customtkinter.CTkFrame) -> None:
+        App.entries: list = []
         
         for row in range(9):
             for column in range(9):
-                entry = customtkinter.CTkEntry(panel, width=55, height=55, font=customtkinter.CTkFont("Helvetica", 50, 'bold'), border_width=2.5, corner_radius=0, justify="center")
+                entry: customtkinter.CTkEntry = customtkinter.CTkEntry(panel, width=55, height=55, font=customtkinter.CTkFont("Helvetica", 50, 'bold'), border_width=2.5, corner_radius=0, justify="center")
             
-                pad_x = (0, 0)
-                pad_y = (0, 0)
+                pad_x: tuple = (0, 0)
+                pad_y: tuple = (0, 0)
 
                 if (column + 1) % 3 == 0 and (column + 1) < 9:
                     pad_x = (0, 10)
@@ -37,11 +37,11 @@ class App:
         
 
     @staticmethod
-    def new(title, width, height) -> None:
+    def new(title: str, width: int, height: int) -> None:
 
-        app = customtkinter.CTk()
-        gridPanel = customtkinter.CTkFrame(app, bg_color="transparent")
-        resolveGrid = customtkinter.CTkButton(app, text="Résoudre la Grille", corner_radius=32, width=300, height=50, font=customtkinter.CTkFont("Helvetica", 25,'bold'), command=App.resolveGrid)
+        app: customtkinter.CTk = customtkinter.CTk()
+        gridPanel: customtkinter.CTkFrame = customtkinter.CTkFrame(app, bg_color="transparent")
+        resolveGrid: customtkinter.CTkButton = customtkinter.CTkButton(app, text="Résoudre la Grille", corner_radius=32, width=300, height=50, font=customtkinter.CTkFont("Helvetica", 25,'bold'), command=App.resolveGrid)
 
         App.title = title
         App.width = width
@@ -51,7 +51,7 @@ class App:
         app.title(App.title)
         app.resizable(False, False)
 
-        inputLabel = customtkinter.CTkLabel(app, font=customtkinter.CTkFont("Helvetica", 25, 'bold'), text="Entrez la grille de Sudoku à résoudre : ")  
+        inputLabel: customtkinter.CTkLabel = customtkinter.CTkLabel(app, font=customtkinter.CTkFont("Helvetica", 25, 'bold'), text="Entrez la grille de Sudoku à résoudre : ")  
     
         App.createGrid(gridPanel)
 
