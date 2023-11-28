@@ -14,7 +14,7 @@ class App:
         pygame.mixer.music.load("../resources/backgroundmusic.mp3")
         if playMusic.get():
             pygame.mixer.music.play(-1)
-            pygame.mixer.music.set_volume(0.3)
+            pygame.mixer.music.set_volume(2)
         else:
             pygame.mixer.music.stop()
 
