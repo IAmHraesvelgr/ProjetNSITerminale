@@ -13,7 +13,7 @@ class App:
         pygame.mixer.music.load(os.path.dirname(os.path.relpath(__file__)) + "../../resources/backgroundmusic.mp3")
         if playMusic.get():
             pygame.mixer.music.play(-1)
-            pygame.mixer.music.set_volume(2)
+            pygame.mixer.music.set_volume(0.3)
         else:
             pygame.mixer.music.stop()
 
@@ -32,7 +32,7 @@ class App:
         
         for row in range(9):
             for column in range(9):
-                entry: customtkinter.CTkEntry = customtkinter.CTkEntry(panel, width=55, height=55, font=App.font, border_width=2.5, corner_radius=0, justify="center")
+                entry: customtkinter.CTkEntry = customtkinter.CTkEntry(panel, width=55, height=55, font=customtkinter.CTkFont("Helvetica", 50,'bold'), border_width=2.5, corner_radius=0, justify="center")
             
                 pad_x: tuple = (0, 0)
                 pad_y: tuple = (0, 0)
