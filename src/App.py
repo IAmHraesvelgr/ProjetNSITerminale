@@ -1,6 +1,5 @@
 import os
 import pygame
-import tkinter
 import customtkinter
 
 class App:
