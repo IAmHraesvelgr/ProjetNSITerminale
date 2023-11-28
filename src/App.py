@@ -11,7 +11,7 @@ class App:
     @staticmethod
     def playBackgroundMusic(playMusic: customtkinter.IntVar) -> None:
         pygame.mixer.init()
-        pygame.mixer.music.load("../resources/backgroundmusic.mp3")
+        pygame.mixer.music.load(os.path.dirname(os.path.relpath(__file__)) + "../../resources/backgroundmusic.mp3")
         if playMusic.get():
             pygame.mixer.music.play(-1)
             pygame.mixer.music.set_volume(0.3)
