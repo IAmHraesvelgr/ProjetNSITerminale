@@ -7,8 +7,12 @@ class App:
         pass
 
     @staticmethod
-    def resolveGrid() -> None:
+    def checkGrid() -> None:
         pass
+
+    @staticmethod
+    def resolveGrid() -> None:
+        App.checkGrid()
 
     @staticmethod
     def createGrid(panel) -> None:
