@@ -18,6 +18,14 @@ Une réalisation du projet de terminale proposé par la spécialité Numérique 
 
 **Tkinter** & **CustomTkinter**
 
+### Musique
+
+**Pygame**
+
+### Autres
+
+**OS**
+
 ## Ressources - Sources d'Inspirations - Aides
 
 + [YouTube](https://youtube.com/)

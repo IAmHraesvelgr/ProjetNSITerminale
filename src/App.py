@@ -81,5 +81,5 @@ class App:
         if os.name == "nt":
             import pywinstyles
             pywinstyles.apply_style(app, "optimised")
-
+            
         app.mainloop()
