@@ -17,10 +17,16 @@ class App:
         else:
             pygame.mixer.music.stop()
 
+    @staticmethod
+    def getGrid() -> None:
+       entry: customtkinter.CTkEntry
+       for entry in App.entries:
+            if entry.get() != "":
+                print(entry.get())
 
     @staticmethod
     def checkGrid() -> None:
-        print("Button Pressed")
+           App.getGrid()
 
     @staticmethod
     def resolveGrid() -> None:
