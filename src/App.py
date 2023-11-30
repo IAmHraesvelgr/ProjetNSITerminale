@@ -31,6 +31,8 @@ class App:
 
     @staticmethod
     def getGrid() -> None:
+        App.grid: list = []
+        App.chunckSize: int = 9
         entry: customtkinter.CTkEntry
         for entry in App.entries:
             if entry.get().isdigit() and int(entry.get()) > 0 and int(entry.get()) < 10:
@@ -41,7 +43,7 @@ class App:
                 messagebox.showerror("Erreur", "ERREUR : Vous ne pouvez rentrer que des nombres entre 1 et 9 !")
                 return
         
-        App.grid = App.splitGrid(App.grid, 9)
+        App.grid = App.splitGrid(App.grid)
         return App.grid
            
 
@@ -93,8 +95,6 @@ class App:
         App.title: int = title
         App.width: int = width
         App.height: int = height
-        App.grid: list = []
-        App.chunckSize: int = 9
         
         app.minsize(App.width, App.height)
         app.title(App.title)
