@@ -1,4 +1,5 @@
 import os
+import numpy
 import pygame
 import customtkinter
 from tkinter import messagebox
@@ -19,25 +20,35 @@ class App:
             pygame.mixer.music.stop()
 
     @staticmethod
+    def isPlacementPossible() -> bool:
+        pass
+
+    @staticmethod
+    def splitGrid(list: list) -> list:
+        return numpy.array_split(list, len(list) / App.chunckSize)
+
+    @staticmethod
     def getGrid() -> None:
         entry: customtkinter.CTkEntry
-        grid: list = []
         for entry in App.entries:
             if entry.get().isdigit() and int(entry.get()) > 0 and int(entry.get()) < 10:
-               grid.append(int(entry.get()))
+               App.grid.append(int(entry.get()))
             elif entry.get() == "":
-                grid.append(0)
+                App.grid.append(0)
             else:
                 messagebox.showerror("Erreur", "ERREUR : Vous ne pouvez rentrer que des nombres entre 1 et 9 !")
                 return
-        return grid
         
+        App.grid = App.splitGrid(App.grid, 9)
+        return App.grid
            
 
     @staticmethod
     def checkGrid() -> None:
         if App.getGrid() != None:
             print(App.getGrid())
+
+        
 
     @staticmethod
     def resolveGrid() -> None:
@@ -80,6 +91,8 @@ class App:
         App.title: int = title
         App.width: int = width
         App.height: int = height
+        App.grid: list = []
+        App.chunckSize: int = 9
         
         app.minsize(App.width, App.height)
         app.title(App.title)

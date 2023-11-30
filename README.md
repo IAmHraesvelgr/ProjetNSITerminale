@@ -41,3 +41,7 @@ Il faut s'assurer que la version de **[Python](https://python.org)** utilisée e
 + [YouTube](https://youtube.com/)
 
 + [StackOverflow](https://stackoverflow.com/)
+
++ [Geeks For Geeks](https://www.geeksforgeeks.org/)
+
++ [Spark By {Exemples}](https://sparkbyexamples.com/)
