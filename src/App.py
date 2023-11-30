@@ -1,11 +1,12 @@
 import os
 import pygame
 import customtkinter
+from tkinter import messagebox
 
 class App:
 
     def __init__(self) -> None:
-        pass    
+        pass  
 
     @staticmethod
     def playBackgroundMusic(playMusic: customtkinter.IntVar) -> None:
@@ -19,13 +20,24 @@ class App:
 
     @staticmethod
     def getGrid() -> None:
-       entry: customtkinter.CTkEntry
-       for entry in App.entries:
-           print(entry.get()) if entry.get() != "" else 0 
+        entry: customtkinter.CTkEntry
+        grid: list = []
+        for entry in App.entries:
+            if entry.get().isdigit() and int(entry.get()) > 0 and int(entry.get()) < 10:
+               grid.append(int(entry.get()))
+            elif entry.get() == "":
+                pass
+            else:
+                messagebox.showerror("Erreur", "ERREUR : Vous ne pouvez rentrer que des nombres entre 1 et 9 !")
+                return
+        return grid
+        
+           
 
     @staticmethod
     def checkGrid() -> None:
-           App.getGrid()
+        if App.getGrid() != None:
+            print(App.getGrid())
 
     @staticmethod
     def resolveGrid() -> None:
