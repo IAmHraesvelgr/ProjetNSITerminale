@@ -26,7 +26,7 @@ class App:
             if entry.get().isdigit() and int(entry.get()) > 0 and int(entry.get()) < 10:
                grid.append(int(entry.get()))
             elif entry.get() == "":
-                pass
+                grid.append(0)
             else:
                 messagebox.showerror("Erreur", "ERREUR : Vous ne pouvez rentrer que des nombres entre 1 et 9 !")
                 return
