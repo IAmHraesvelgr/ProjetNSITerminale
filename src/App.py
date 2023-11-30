@@ -21,8 +21,7 @@ class App:
     def getGrid() -> None:
        entry: customtkinter.CTkEntry
        for entry in App.entries:
-            if entry.get() != "":
-                print(entry.get())
+           print(entry.get()) if entry.get() != "" else 0 
 
     @staticmethod
     def checkGrid() -> None:
