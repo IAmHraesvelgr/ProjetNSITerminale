@@ -4,6 +4,8 @@ import pygame
 import customtkinter
 from tkinter import messagebox
 
+# https://www.geeksforgeeks.org/sudoku-backtracking-7/
+
 class App:
 
     def __init__(self) -> None:
