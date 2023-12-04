@@ -4,9 +4,6 @@ import pygame
 import customtkinter
 from tkinter import messagebox
 
-# https://www.geeksforgeeks.org/sudoku-backtracking-7/
-
-
 class App:
     def __init__(self) -> None:
         pass
@@ -23,10 +20,6 @@ class App:
             pygame.mixer.music.set_volume(0.3)
         else:
             pygame.mixer.music.stop()
-
-    @staticmethod
-    def isPlacementPossible() -> bool:
-        pass
 
     @staticmethod
     def splitGrid(list: list) -> list:
@@ -53,7 +46,7 @@ class App:
         return App.grid
 
     @staticmethod
-    def checkGrid() -> None:
+    def checkGrid(grid, row, column, number) -> None:
         if App.getGrid() != None:
             print(App.getGrid())
 
