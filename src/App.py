@@ -46,7 +46,7 @@ class App:
         return App.grid
 
     @staticmethod
-    def checkGrid(grid, row, column, number) -> None:
+    def checkGrid(grid: int, row: int, column: int, number: int) -> None:
         if App.getGrid() != None:
             print(App.getGrid())
 
