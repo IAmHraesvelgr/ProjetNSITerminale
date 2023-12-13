@@ -4,6 +4,7 @@ import pygame
 import customtkinter
 from tkinter import messagebox
 
+
 class App:
     def __init__(self) -> None:
         pass
