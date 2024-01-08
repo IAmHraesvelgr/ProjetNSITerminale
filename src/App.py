@@ -50,10 +50,28 @@ class App:
     def checkGrid(row: int, column: int, number: int, board: list) -> None:
         if App.getGrid() != None:
             messagebox.showerror("Erreur", "Votre grille est vide !")
+            return
+        
+        for i in range(9):
+            if board[row][i] == number:
+                return False
+        
+        for i in range(9):
+            if board[i][column] == number:
+                return False
+        
+        row = row - row % 3
+        column = column - column % 3
+
+        for i in range(3):
+            for j in range(3):
+                if  board[row + i][column + j] == number:
+                    return False
+        return True
 
     @staticmethod
     def resolveGrid() -> None:
-        App.checkGrid(None, None, None, None)
+        pass
 
     @staticmethod
     def createGrid(panel: customtkinter.CTkFrame) -> None:
