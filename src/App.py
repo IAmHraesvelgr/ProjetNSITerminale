@@ -53,7 +53,7 @@ class App:
 
     @staticmethod
     def resolveGrid() -> None:
-        App.checkGrid()
+        App.checkGrid(None, None, None, None)
 
     @staticmethod
     def createGrid(panel: customtkinter.CTkFrame) -> None:
@@ -63,9 +63,9 @@ class App:
             for column in range(9):
                 entry: customtkinter.CTkEntry = customtkinter.CTkEntry(
                     panel,
-                    width=55,
-                    height=55,
-                    font=customtkinter.CTkFont("Helvetica", 50, "bold"),
+                    width=40,
+                    height=40,
+                    font=customtkinter.CTkFont("Helvetica", 40, "bold"),
                     border_width=2.5,
                     corner_radius=0,
                     justify="center",
