@@ -47,9 +47,9 @@ class App:
         return App.grid
 
     @staticmethod
-    def checkGrid(grid: int, row: int, column: int, number: int) -> None:
+    def checkGrid(row: int, column: int, number: int, board: list) -> None:
         if App.getGrid() != None:
-            print(App.getGrid())
+            messagebox.showerror("Erreur", "Votre grille est vide !")
 
     @staticmethod
     def resolveGrid() -> None:
