@@ -63,9 +63,9 @@ class App:
             for column in range(9):
                 entry: customtkinter.CTkEntry = customtkinter.CTkEntry(
                     panel,
-                    width=40,
-                    height=40,
-                    font=customtkinter.CTkFont("Helvetica", 40, "bold"),
+                    width=30,
+                    height=30,
+                    font=customtkinter.CTkFont("Helvetica", 30, "bold"),
                     border_width=2.5,
                     corner_radius=0,
                     justify="center",
