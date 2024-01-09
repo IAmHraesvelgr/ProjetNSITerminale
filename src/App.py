@@ -40,7 +40,8 @@ class App:
             else:
                 messagebox.showerror(
                     "Erreur",
-                    "ERREUR : Vous ne pouvez rentrer que des nombres entre 1 et 9 !",
+                    """ERREUR : Vous ne pouvez rentrer que des nombres
+                    entre 1 et 9 !""",
                 )
                 return
 
