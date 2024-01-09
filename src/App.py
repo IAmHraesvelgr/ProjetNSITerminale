@@ -49,24 +49,24 @@ class App:
 
     @staticmethod
     def checkGrid(row: int, column: int, number: int, board: list) -> None:
-        if App.getGrid() != None:
+        if App.getGrid() is not None:
             messagebox.showerror("Erreur", "Votre grille est vide !")
             return
-        
+
         for i in range(9):
             if board[row][i] == number:
                 return False
-        
+
         for i in range(9):
             if board[i][column] == number:
                 return False
-        
+
         row = row - row % 3
         column = column - column % 3
 
         for i in range(3):
             for j in range(3):
-                if  board[row + i][column + j] == number:
+                if board[row + i][column + j] == number:
                     return False
         return True
 

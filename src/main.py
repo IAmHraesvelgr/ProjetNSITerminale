@@ -1,4 +1,5 @@
-from App import *
+from App import App
+import customtkinter
 
 
 def main():
