@@ -27,16 +27,16 @@ class App:
         return numpy.array_split(list, len(list) / App.chunckSize)
 
     @staticmethod
-    def getGrid() -> None:
+    def getGrid() -> list:
         # TODO : Modification de la fonction
-        App.grid: list = []
+        grid: list = []
         App.chunckSize: int = 9
         entry: customtkinter.CTkEntry
         for entry in App.entries:
             if entry.get().isdigit() and int(entry.get()) > 0 and int(entry.get()) < 10:
-                App.grid.append(int(entry.get()))
+                grid.append(int(entry.get()))
             elif entry.get() == "":
-                App.grid.append(0)
+                grid.append(0)
             else:
                 messagebox.showerror(
                     "Erreur",
@@ -45,12 +45,12 @@ class App:
                 )
                 return
 
-        App.grid = App.splitGrid(App.grid)
-        return App.grid
+        grid = App.splitGrid(grid)
+        return grid
 
     @staticmethod
     def checkGrid(row: int, column: int, number: int, board: list) -> None:
-        if App.getGrid() is not None:
+        if App.getGrid() is None:
             messagebox.showerror("Erreur", "Votre grille est vide !")
             return
 
@@ -73,7 +73,9 @@ class App:
 
     @staticmethod
     def resolveGrid() -> None:
-        pass
+        App.grid = App.getGrid()
+        App.grid = [array.tolist() for array in App.grid]
+        print(App.grid)
 
     @staticmethod
     def createGrid(panel: customtkinter.CTkFrame) -> None:
@@ -140,6 +142,7 @@ class App:
         App.title: int = title
         App.width: int = width
         App.height: int = height
+        App.grid: list = []
 
         app.minsize(App.width, App.height)
         app.title(App.title)
