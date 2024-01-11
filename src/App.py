@@ -28,7 +28,6 @@ class App:
 
     @staticmethod
     def getGrid() -> list:
-        # TODO : Modification de la fonction
         grid: list = []
         App.chunckSize: int = 9
         entry: customtkinter.CTkEntry
