@@ -71,10 +71,32 @@ class App:
         return True
 
     @staticmethod
-    def resolveGrid() -> None:
-        App.grid = App.getGrid()
-        App.grid = [array.tolist() for array in App.grid]
+    def resolveGrid(grid: list) -> None:
+        App.calls += 1
+
+        for i in range(9):
+            for j in range(9):
+                if grid[i][j] == 0:
+                    App.breakSolve = 1
+                    App.row: int = i
+                    App.column: int = j
+                    break
+
+        if App.breakSolve == 0:
+            for element in grid:
+                print(element)
+            exit(0)
+
+        for i in range(10):
+            if App.checkGrid(App.row, App.column, i, grid):
+                grid[App.row][App.column] = i
+                if App.resolveGrid(grid):
+                    print(App.grid)
+                    return
+                grid[App.row][App.column] = 0
         print(App.grid)
+        return
+
 
     @staticmethod
     def createGrid(panel: customtkinter.CTkFrame) -> None:
@@ -115,6 +137,14 @@ class App:
         gridPanel: customtkinter.CTkFrame = customtkinter.CTkFrame(
             app, bg_color="transparent"
         )
+
+        App.createGrid(gridPanel)
+
+        App.grid = App.getGrid()
+        App.grid = [array.tolist() for array in App.grid]
+        App.calls: int = 0
+        App.breakSolve: int = 0
+
         resolveGrid: customtkinter.CTkButton = customtkinter.CTkButton(
             app,
             text="Résoudre la Grille",
@@ -122,7 +152,7 @@ class App:
             width=300,
             height=50,
             font=App.font,
-            command=App.resolveGrid,
+            command=lambda grid = App.grid : App.resolveGrid(grid),
         )
 
         playMusic: customtkinter.IntVar = customtkinter.IntVar(app, 1)
@@ -150,8 +180,6 @@ class App:
         inputLabel: customtkinter.CTkLabel = customtkinter.CTkLabel(
             app, font=App.font, text="Entrez la grille de Sudoku à résoudre : "
         )
-
-        App.createGrid(gridPanel)
 
         inputLabel.pack(pady=15)
         gridPanel.pack(pady=35)
