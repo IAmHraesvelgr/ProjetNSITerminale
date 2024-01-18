@@ -23,8 +23,8 @@ class App:
             pygame.mixer.music.stop()
 
     @staticmethod
-    def splitGrid(list: list) -> list:
-        return numpy.array_split(list, len(list) / App.chunckSize)
+    def splitGrid(grid: list) -> list:
+        return numpy.array_split(grid, len(grid) / App.chunckSize)
 
     @staticmethod
     def getGrid() -> list:
@@ -130,6 +130,15 @@ class App:
                 App.entries.append(entry)
 
     @staticmethod
+    def runGridSolver(grid: list) -> None:
+        grid = App.getGrid()
+        grid = [array.tolist() for array in grid]
+
+        print(grid)
+
+        App.resolveGrid(grid)
+
+    @staticmethod
     def new(title: str, width: int, height: int) -> None:
         app: customtkinter.CTk = customtkinter.CTk()
         App.font: customtkinter.CTkFont = customtkinter.CTkFont("Helvetica", 25, "bold")
@@ -145,6 +154,8 @@ class App:
         App.calls: int = 0
         App.breakSolve: int = 0
 
+        App.runResolve = lambda : App.runGridSolver(App.grid)
+
         resolveGrid: customtkinter.CTkButton = customtkinter.CTkButton(
             app,
             text="Résoudre la Grille",
@@ -152,7 +163,7 @@ class App:
             width=300,
             height=50,
             font=App.font,
-            command=lambda grid = App.grid : App.resolveGrid(grid),
+            command=App.runResolve,
         )
 
         playMusic: customtkinter.IntVar = customtkinter.IntVar(app, 1)
@@ -163,7 +174,7 @@ class App:
             onvalue=1,
             offvalue=0,
             variable=playMusic,
-            command=lambda shouldPlayMusic=playMusic: App.playBackgroundMusic(
+            command=lambda shouldPlayMusic=playMusic : App.playBackgroundMusic(
                 shouldPlayMusic
             ),
         )
