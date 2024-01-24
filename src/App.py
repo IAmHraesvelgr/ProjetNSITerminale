@@ -23,13 +23,9 @@ class App:
             pygame.mixer.music.stop()
 
     @staticmethod
-    def splitGrid(grid: list) -> list:
-        return numpy.array_split(grid, len(grid) / App.chunckSize)
-
-    @staticmethod
     def getGrid() -> list:
         grid: list = []
-        App.chunckSize: int = 9
+        App.chunkSize: int = 9
         entry: customtkinter.CTkEntry
         for entry in App.entries:
             if entry.get().isdigit() and int(entry.get()) > 0 and int(entry.get()) < 10:
@@ -48,7 +44,11 @@ class App:
         return grid
 
     @staticmethod
-    def checkGrid(row: int, column: int, number: int, board: list) -> None:
+    def splitGrid(grid: list) -> list:
+        return numpy.array_split(grid, len(grid) / App.chunkSize)
+
+    @staticmethod
+    def checkGrid(row: int, column: int, number: int, board: list) -> bool:
         if App.getGrid() is None:
             messagebox.showerror("Erreur", "Votre grille est vide !")
             return
@@ -97,7 +97,6 @@ class App:
         print(App.grid)
         return
 
-
     @staticmethod
     def createGrid(panel: customtkinter.CTkFrame) -> None:
         App.entries: list = []
@@ -109,7 +108,7 @@ class App:
                     width=30,
                     height=30,
                     font=customtkinter.CTkFont("Helvetica", 30, "bold"),
-                    border_width=2.5,
+                    border_width=2,
                     corner_radius=0,
                     justify="center",
                 )
@@ -154,7 +153,7 @@ class App:
         App.calls: int = 0
         App.breakSolve: int = 0
 
-        App.runResolve = lambda : App.runGridSolver(App.grid)
+        App.runResolve = lambda: App.runGridSolver(App.grid)
 
         resolveGrid: customtkinter.CTkButton = customtkinter.CTkButton(
             app,
@@ -174,12 +173,12 @@ class App:
             onvalue=1,
             offvalue=0,
             variable=playMusic,
-            command=lambda shouldPlayMusic=playMusic : App.playBackgroundMusic(
+            command=lambda shouldPlayMusic=playMusic: App.playBackgroundMusic(
                 shouldPlayMusic
             ),
         )
 
-        App.title: int = title
+        App.title: str = title
         App.width: int = width
         App.height: int = height
         App.grid: list = []
