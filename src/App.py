@@ -12,8 +12,7 @@ class App:
     @staticmethod
     def new(title: str, width: int, height: int) -> None:
         app: customtkinter.CTk = customtkinter.CTk()
-        App.font: customtkinter.CTkFont = customtkinter.CTkFont("Helvetica",
-                                                                25, "bold")
+        App.font: customtkinter.CTkFont = customtkinter.CTkFont("Helvetica", 25, "bold")
 
         gridPanel: customtkinter.CTkFrame = customtkinter.CTkFrame(
             app, bg_color="transparent"
@@ -92,8 +91,7 @@ class App:
 
     @staticmethod
     def isEntryValid(entry: customtkinter.CTkEntry) -> bool:
-        if (entry.get().isdigit() and int(entry.get()) > 0
-                and int(entry.get()) < 10):
+        if entry.get().isdigit() and int(entry.get()) > 0 and int(entry.get()) < 10:
             return True
         return False
 
@@ -109,8 +107,8 @@ class App:
             else:
                 messagebox.showerror(
                     "Erreur",
-                    "ERREUR : Vous ne pouvez rentrer que des nombres " +
-                    "entre 1 et 9 !",
+                    "ERREUR : Vous ne pouvez rentrer que des nombres "
+                    + "entre 1 et 9 !",
                 )
                 return []
 
@@ -197,8 +195,7 @@ class App:
                     pad_y = (0, 10)
 
                 entry.grid(
-                    row=row, column=column, ipadx=5, ipady=5, padx=pad_x,
-                    pady=pad_y
+                    row=row, column=column, ipadx=5, ipady=5, padx=pad_x, pady=pad_y
                 )
 
                 App.entries.append(entry)
@@ -218,5 +215,4 @@ class App:
             App.resolveGrid(App.grid)
 
         except Exception:
-            messagebox.showerror("ERREUR", "Impossible de résoudre votre " +
-                                 "grille !")
+            messagebox.showerror("ERREUR", "Impossible de résoudre votre " + "grille !")
