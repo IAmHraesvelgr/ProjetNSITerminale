@@ -6,26 +6,27 @@ from tkinter import messagebox
 
 
 class App:
-    def __init__(self) -> None:
-        pass
+    def __init__(self, title: str, width: int, height: int) -> None:
+        self.title = title
+        self.width = width
+        self.height = height
 
-    @staticmethod
-    def new(title: str, width: int, height: int) -> None:
+    def runApp(self) -> None:
         app: customtkinter.CTk = customtkinter.CTk()
-        App.font: customtkinter.CTkFont = customtkinter.CTkFont("Helvetica", 25, "bold")
+        self.font: customtkinter.CTkFont = customtkinter.CTkFont("Helvetica", 25, "bold")
 
         gridPanel: customtkinter.CTkFrame = customtkinter.CTkFrame(
             app, bg_color="transparent"
         )
 
-        App.createGrid(gridPanel)
-        App.chunkSize: int = 9
-        App.grid = App.getGrid()
-        App.grid = [array.tolist() for array in App.grid]
-        App.calls: int = 0
-        App.breakSolve: int = 0
+        self.createGrid(gridPanel)
+        self.chunkSize: int = 9
+        self.grid = self.getGrid()
+        self.grid = [array.tolist() for array in self.grid]
+        self.calls: int = 0
+        self.breakSolve: int = 0
 
-        App.runResolve = lambda: App.runGridSolver(App.grid)
+        self.runResolve = lambda: self.runGridSolver(self.grid)
 
         resolveGrid: customtkinter.CTkButton = customtkinter.CTkButton(
             app,
@@ -33,34 +34,31 @@ class App:
             corner_radius=32,
             width=300,
             height=50,
-            font=App.font,
-            command=App.runResolve,
+            font=self.font,
+            command=self.runResolve,
         )
 
         playMusic: customtkinter.IntVar = customtkinter.IntVar(app, 1)
-        App.playBackgroundMusic(playMusic)
+        self.playBackgroundMusic(playMusic)
         musicButton: customtkinter.CTkCheckBox = customtkinter.CTkCheckBox(
             app,
             text="Musique",
             onvalue=1,
             offvalue=0,
             variable=playMusic,
-            command=lambda shouldPlayMusic=playMusic: App.playBackgroundMusic(
+            command=lambda shouldPlayMusic=playMusic: self.playBackgroundMusic(
                 shouldPlayMusic
             ),
         )
 
-        App.title: str = title
-        App.width: int = width
-        App.height: int = height
-        App.grid: list = []
+        self.grid: list = []
 
-        app.minsize(App.width, App.height)
-        app.title(App.title)
+        app.minsize(self.width, self.height)
+        app.title(self.title)
         app.resizable(False, False)
 
         inputLabel: customtkinter.CTkLabel = customtkinter.CTkLabel(
-            app, font=App.font, text="Entrez la grille de Sudoku à résoudre : "
+            app, font=self.font, text="Entrez la grille de Sudoku à résoudre : "
         )
 
         inputLabel.pack(pady=15)
@@ -76,8 +74,7 @@ class App:
 
         app.mainloop()
 
-    @staticmethod
-    def playBackgroundMusic(playMusic: customtkinter.IntVar) -> None:
+    def playBackgroundMusic(self, playMusic: customtkinter.IntVar) -> None:
         pygame.mixer.init()
         pygame.mixer.music.load(
             os.path.dirname(os.path.relpath(__file__))
@@ -89,18 +86,16 @@ class App:
         else:
             pygame.mixer.music.stop()
 
-    @staticmethod
-    def isEntryValid(entry: customtkinter.CTkEntry) -> bool:
+    def isEntryValid(self, entry: customtkinter.CTkEntry) -> bool:
         if entry.get().isdigit() and int(entry.get()) > 0 and int(entry.get()) < 10:
             return True
         return False
 
-    @staticmethod
-    def getGrid() -> list:
+    def getGrid(self) -> list:
         grid: list = []
         entry: customtkinter.CTkEntry
-        for entry in App.entries:
-            if App.isEntryValid(entry):
+        for entry in self.entries:
+            if self.isEntryValid(entry):
                 grid.append(int(entry.get()))
             elif entry.get() == "":
                 grid.append(0)
@@ -112,16 +107,14 @@ class App:
                 )
                 return []
 
-        grid = App.splitGrid(grid)
+        grid = self.splitGrid(grid)
         return grid
 
-    @staticmethod
-    def splitGrid(grid: list) -> list:
-        return numpy.array_split(grid, int(len(grid) / App.chunkSize))
+    def splitGrid(self, grid: list) -> list:
+        return numpy.array_split(grid, int(len(grid) / self.chunkSize))
 
-    @staticmethod
-    def checkGrid(row: int, column: int, number: int, board: list) -> bool:
-        if App.getGrid() is None:
+    def checkGrid(self, row: int, column: int, number: int, board: list) -> bool:
+        if self.getGrid() is None:
             messagebox.showerror("Erreur", "Votre grille est vide !")
             return False
 
@@ -142,36 +135,34 @@ class App:
                     return False
         return True
 
-    @staticmethod
-    def resolveGrid(grid: list) -> None:
-        App.calls += 1
+    def resolveGrid(self, grid: list) -> None:
+        self.calls += 1
 
         for i in range(9):
             for j in range(9):
                 if grid[i][j] == 0:
-                    App.breakSolve = 1
-                    App.row: int = i
-                    App.column: int = j
+                    self.breakSolve = 1
+                    self.row: int = i
+                    self.column: int = j
                     break
 
-        if App.breakSolve == 0:
+        if self.breakSolve == 0:
             for element in grid:
                 print(element)
             exit(0)
 
         for i in range(10):
-            if App.checkGrid(App.row, App.column, i, grid):
-                grid[App.row][App.column] = i
-                if App.resolveGrid(grid):
-                    print(App.grid)
+            if self.checkGrid(self.row, self.column, i, grid):
+                grid[self.row][self.column] = i
+                if self.resolveGrid(grid):
+                    print(self.grid)
                     return
-                grid[App.row][App.column] = 0
-        print(App.grid)
+                grid[self.row][self.column] = 0
+        print(self.grid)
         return
 
-    @staticmethod
-    def createGrid(panel: customtkinter.CTkFrame) -> None:
-        App.entries: list = []
+    def createGrid(self, panel: customtkinter.CTkFrame) -> None:
+        self.entries: list = []
 
         for row in range(9):
             for column in range(9):
@@ -198,21 +189,20 @@ class App:
                     row=row, column=column, ipadx=5, ipady=5, padx=pad_x, pady=pad_y
                 )
 
-                App.entries.append(entry)
+                self.entries.append(entry)
 
-    @staticmethod
-    def runGridSolver(grid: list) -> None:
+    def runGridSolver(self, grid: list) -> None:
         try:
-            App.grid: list = App.getGrid()
-            App.grid: list = [array.tolist() for array in grid]
+            self.grid: list = self.getGrid()
+            self.grid: list = [array.tolist() for array in grid]
 
         except Exception:
             messagebox.showerror("ERREUR", "Votre grille est invalide !")
 
-        print(App.grid)
+        print(self.grid)
 
         try:
-            App.resolveGrid(App.grid)
+            self.resolveGrid(self.grid)
 
         except Exception:
             messagebox.showerror("ERREUR", "Impossible de résoudre votre " + "grille !")
