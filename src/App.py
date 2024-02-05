@@ -91,7 +91,7 @@ class App:
             pygame.mixer.music.stop()
 
     @staticmethod
-    def isEntryGood(entry: customtkinter.CTkEntry) -> bool:
+    def isEntryValid(entry: customtkinter.CTkEntry) -> bool:
         if (entry.get().isdigit() and int(entry.get()) > 0
                 and int(entry.get()) < 10):
             return True
@@ -102,15 +102,15 @@ class App:
         grid: list = []
         entry: customtkinter.CTkEntry
         for entry in App.entries:
-            if App.isEntryGood(entry):
+            if App.isEntryValid(entry):
                 grid.append(int(entry.get()))
             elif entry.get() == "":
                 grid.append(0)
             else:
                 messagebox.showerror(
                     "Erreur",
-                    """ERREUR : Vous ne pouvez rentrer que des nombres
-                    entre 1 et 9 !""",
+                    "ERREUR : Vous ne pouvez rentrer que des nombres " +
+                    "entre 1 et 9 !",
                 )
                 return []
 
@@ -205,9 +205,18 @@ class App:
 
     @staticmethod
     def runGridSolver(grid: list) -> None:
-        grid = App.getGrid()
-        grid = [array.tolist() for array in grid]
+        try:
+            App.grid: list = App.getGrid()
+            App.grid: list = [array.tolist() for array in grid]
 
-        print(grid)
+        except Exception:
+            messagebox.showerror("ERREUR", "Votre grille est invalide !")
 
-        App.resolveGrid(grid)
+        print(App.grid)
+
+        try:
+            App.resolveGrid(App.grid)
+
+        except Exception:
+            messagebox.showerror("ERREUR", "Impossible de résoudre votre " +
+                                 "grille !")
