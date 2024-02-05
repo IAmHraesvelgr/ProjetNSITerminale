@@ -10,6 +10,74 @@ class App:
         pass
 
     @staticmethod
+    def new(title: str, width: int, height: int) -> None:
+        app: customtkinter.CTk = customtkinter.CTk()
+        App.font: customtkinter.CTkFont = customtkinter.CTkFont("Helvetica",
+                                                                25, "bold")
+
+        gridPanel: customtkinter.CTkFrame = customtkinter.CTkFrame(
+            app, bg_color="transparent"
+        )
+
+        App.createGrid(gridPanel)
+        App.chunkSize: int = 9
+        App.grid = App.getGrid()
+        App.grid = [array.tolist() for array in App.grid]
+        App.calls: int = 0
+        App.breakSolve: int = 0
+
+        App.runResolve = lambda: App.runGridSolver(App.grid)
+
+        resolveGrid: customtkinter.CTkButton = customtkinter.CTkButton(
+            app,
+            text="Résoudre la Grille",
+            corner_radius=32,
+            width=300,
+            height=50,
+            font=App.font,
+            command=App.runResolve,
+        )
+
+        playMusic: customtkinter.IntVar = customtkinter.IntVar(app, 1)
+        App.playBackgroundMusic(playMusic)
+        musicButton: customtkinter.CTkCheckBox = customtkinter.CTkCheckBox(
+            app,
+            text="Musique",
+            onvalue=1,
+            offvalue=0,
+            variable=playMusic,
+            command=lambda shouldPlayMusic=playMusic: App.playBackgroundMusic(
+                shouldPlayMusic
+            ),
+        )
+
+        App.title: str = title
+        App.width: int = width
+        App.height: int = height
+        App.grid: list = []
+
+        app.minsize(App.width, App.height)
+        app.title(App.title)
+        app.resizable(False, False)
+
+        inputLabel: customtkinter.CTkLabel = customtkinter.CTkLabel(
+            app, font=App.font, text="Entrez la grille de Sudoku à résoudre : "
+        )
+
+        inputLabel.pack(pady=15)
+        gridPanel.pack(pady=35)
+
+        resolveGrid.pack(pady=20, side=customtkinter.BOTTOM)
+        musicButton.pack(side=customtkinter.RIGHT)
+
+        if os.name == "nt":
+            import pywinstyles
+
+            pywinstyles.apply_style(app, "optimised")
+
+        app.mainloop()
+
+    @staticmethod
     def playBackgroundMusic(playMusic: customtkinter.IntVar) -> None:
         pygame.mixer.init()
         pygame.mixer.music.load(
@@ -23,12 +91,18 @@ class App:
             pygame.mixer.music.stop()
 
     @staticmethod
+    def isEntryGood(entry: customtkinter.CTkEntry) -> bool:
+        if (entry.get().isdigit() and int(entry.get()) > 0
+                and int(entry.get()) < 10):
+            return True
+        return False
+
+    @staticmethod
     def getGrid() -> list:
         grid: list = []
-        App.chunkSize: int = 9
         entry: customtkinter.CTkEntry
         for entry in App.entries:
-            if entry.get().isdigit() and int(entry.get()) > 0 and int(entry.get()) < 10:
+            if App.isEntryGood(entry):
                 grid.append(int(entry.get()))
             elif entry.get() == "":
                 grid.append(0)
@@ -38,20 +112,20 @@ class App:
                     """ERREUR : Vous ne pouvez rentrer que des nombres
                     entre 1 et 9 !""",
                 )
-                return
+                return []
 
         grid = App.splitGrid(grid)
         return grid
 
     @staticmethod
     def splitGrid(grid: list) -> list:
-        return numpy.array_split(grid, len(grid) / App.chunkSize)
+        return numpy.array_split(grid, int(len(grid) / App.chunkSize))
 
     @staticmethod
     def checkGrid(row: int, column: int, number: int, board: list) -> bool:
         if App.getGrid() is None:
             messagebox.showerror("Erreur", "Votre grille est vide !")
-            return
+            return False
 
         for i in range(9):
             if board[row][i] == number:
@@ -123,7 +197,8 @@ class App:
                     pad_y = (0, 10)
 
                 entry.grid(
-                    row=row, column=column, ipadx=5, ipady=5, padx=pad_x, pady=pad_y
+                    row=row, column=column, ipadx=5, ipady=5, padx=pad_x,
+                    pady=pad_y
                 )
 
                 App.entries.append(entry)
@@ -136,70 +211,3 @@ class App:
         print(grid)
 
         App.resolveGrid(grid)
-
-    @staticmethod
-    def new(title: str, width: int, height: int) -> None:
-        app: customtkinter.CTk = customtkinter.CTk()
-        App.font: customtkinter.CTkFont = customtkinter.CTkFont("Helvetica", 25, "bold")
-
-        gridPanel: customtkinter.CTkFrame = customtkinter.CTkFrame(
-            app, bg_color="transparent"
-        )
-
-        App.createGrid(gridPanel)
-
-        App.grid = App.getGrid()
-        App.grid = [array.tolist() for array in App.grid]
-        App.calls: int = 0
-        App.breakSolve: int = 0
-
-        App.runResolve = lambda: App.runGridSolver(App.grid)
-
-        resolveGrid: customtkinter.CTkButton = customtkinter.CTkButton(
-            app,
-            text="Résoudre la Grille",
-            corner_radius=32,
-            width=300,
-            height=50,
-            font=App.font,
-            command=App.runResolve,
-        )
-
-        playMusic: customtkinter.IntVar = customtkinter.IntVar(app, 1)
-        App.playBackgroundMusic(playMusic)
-        musicButton: customtkinter.CTkCheckBox = customtkinter.CTkCheckBox(
-            app,
-            text="Musique",
-            onvalue=1,
-            offvalue=0,
-            variable=playMusic,
-            command=lambda shouldPlayMusic=playMusic: App.playBackgroundMusic(
-                shouldPlayMusic
-            ),
-        )
-
-        App.title: str = title
-        App.width: int = width
-        App.height: int = height
-        App.grid: list = []
-
-        app.minsize(App.width, App.height)
-        app.title(App.title)
-        app.resizable(False, False)
-
-        inputLabel: customtkinter.CTkLabel = customtkinter.CTkLabel(
-            app, font=App.font, text="Entrez la grille de Sudoku à résoudre : "
-        )
-
-        inputLabel.pack(pady=15)
-        gridPanel.pack(pady=35)
-
-        resolveGrid.pack(pady=20, side=customtkinter.BOTTOM)
-        musicButton.pack(side=customtkinter.RIGHT)
-
-        if os.name == "nt":
-            import pywinstyles
-
-            pywinstyles.apply_style(app, "optimised")
-
-        app.mainloop()
