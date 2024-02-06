@@ -26,8 +26,6 @@ class App:
         self.calls: int = 0
         self.breakSolve: int = 0
 
-        self.runResolve = lambda: self.runGridSolver(self.grid)
-
         resolveGrid: customtkinter.CTkButton = customtkinter.CTkButton(
             app,
             text="Résoudre la Grille",
@@ -35,7 +33,7 @@ class App:
             width=300,
             height=50,
             font=self.font,
-            command=self.runResolve,
+            command=lambda: self.returnGrid(self.grid),
         )
 
         playMusic: customtkinter.IntVar = customtkinter.IntVar(app, 1)
@@ -50,8 +48,6 @@ class App:
                 shouldPlayMusic
             ),
         )
-
-        self.grid: list = []
 
         app.minsize(self.width, self.height)
         app.title(self.title)
@@ -133,28 +129,6 @@ class App:
         grid = self.splitGrid(grid)
         return grid
 
-    def checkGrid(self, row: int, column: int, number: int, board: list) -> bool:
-        if self.getGrid() is None:
-            messagebox.showerror("ERREUR", "Votre grille est vide !")
-            return False
-
-        for i in range(9):
-            if board[row][i] == number:
-                return False
-
-        for i in range(9):
-            if board[i][column] == number:
-                return False
-
-        row = row - row % 3
-        column = column - column % 3
-
-        for i in range(3):
-            for j in range(3):
-                if board[row + i][column + j] == number:
-                    return False
-        return True
-
     def splitGrid(self, grid: list) -> list:
         return numpy.array_split(grid, int(len(grid) / self.chunkSize))
 
@@ -163,44 +137,47 @@ class App:
             return True
         return False
 
-    def resolveGrid(self, grid: list) -> None:
-        self.calls += 1
+    def printGrid(self, grid: list):
+        for x in range(9):
+            for y in range(9):
+                print(grid[x][y], end=" ")
+            print()
 
-        for i in range(9):
-            for j in range(9):
-                if grid[i][j] == 0:
-                    self.breakSolve = 1
-                    self.row: int = i
-                    self.column: int = j
-                    break
+    def resolveGrid(self, grid: list, row: int, col: int, num: int) -> bool:
+        for x in range(9):
+            if grid[row][x] == num:
+                return False
 
-        if self.breakSolve == 0:
-            for element in grid:
-                print(element)
-            exit(0)
+        for x in range(9):
+            if grid[x][col] == num:
+                return False
 
-        for i in range(10):
-            if self.checkGrid(self.row, self.column, i, grid):
-                grid[self.row][self.column] = i
-                if self.resolveGrid(grid):
-                    print(self.grid)
-                    return
-                grid[self.row][self.column] = 0
-        print(self.grid)
-        return
+        startRow: float = row - row % 3
+        startCol: float = col - col % 3
 
-    def runGridSolver(self, grid: list) -> None:
-        try:
-            self.grid: list = self.getGrid()
-            self.grid: list = [array.tolist() for array in grid]
+        for i in range(3):
+            for j in range(3):
+                if grid[i + startRow][j + startCol] == num:
+                    return False
+        return True
 
-        except Exception:
-            messagebox.showerror("ERREUR", "Votre grille est invalide !")
+    def runResolve(self, grid: list, row: int, col: int) -> bool:
+        if (row == 9 - 1 and col == 9):
+            return True
+        if col == 9:
+            row += 1
+            col = 0
+        if grid[row][col] > 0:
+            return self.runResolve(grid, row, col + 1)
+        for num in range(1, 10, 1):
+            if self.resolveGrid(grid, row, col, num):
+                grid[row][col] = num
+            if self.runResolve(grid, row, col + 1):
+                return True
+        return False
 
-        print(self.grid)
-
-        try:
-            self.resolveGrid(self.grid)
-
-        except Exception:
-            messagebox.showerror("ERREUR", "Impossible de résoudre votre grille !")
+    def returnGrid(self, grid: list) -> None:
+        if self.runResolve(grid, 0, 0):
+            self.printGrid(grid)
+        else:
+            print("No Solution :(")
