@@ -7,9 +7,9 @@ from tkinter import messagebox
 
 class App:
     def __init__(self, title: str, width: int, height: int) -> None:
-        self.title = title
-        self.width = width
-        self.height = height
+        self.title: str = title
+        self.width: int = width
+        self.height: int = height
 
     def runApp(self) -> None:
         app: customtkinter.CTk = customtkinter.CTk()
@@ -21,7 +21,7 @@ class App:
 
         self.createGrid(gridPanel)
         self.chunkSize: int = 9
-        self.grid = self.getGrid()
+        self.grid: list = self.getGrid()
         self.grid = [array.tolist() for array in self.grid]
         self.calls: int = 0
         self.breakSolve: int = 0
@@ -86,10 +86,33 @@ class App:
         else:
             pygame.mixer.music.stop()
 
-    def isEntryValid(self, entry: customtkinter.CTkEntry) -> bool:
-        if entry.get().isdigit() and int(entry.get()) > 0 and int(entry.get()) < 10:
-            return True
-        return False
+    def createGrid(self, panel: customtkinter.CTkFrame) -> None:
+        self.entries: list = []
+
+        for row in range(9):
+            for column in range(9):
+                entry: customtkinter.CTkEntry = customtkinter.CTkEntry(
+                    panel,
+                    width=30,
+                    height=30,
+                    font=customtkinter.CTkFont("Helvetica", 30, "bold"),
+                    border_width=2,
+                    corner_radius=0,
+                    justify="center",
+                )
+
+                pad_x: tuple = (0, 0)
+                pad_y: tuple = (0, 0)
+
+                if (column + 1) % 3 == 0 and (column + 1) < 9:
+                    pad_x = (0, 10)
+
+                if (row + 1) % 3 == 0 and (row + 1) < 9:
+                    pad_y = (0, 10)
+
+                entry.grid(row=row, column=column, ipadx=5, ipady=5, padx=pad_x, pady=pad_y)
+
+                self.entries.append(entry)
 
     def getGrid(self) -> list:
         grid: list = []
@@ -101,8 +124,8 @@ class App:
                 grid.append(0)
             else:
                 messagebox.showerror(
-                    "Erreur",
-                    "ERREUR : Vous ne pouvez rentrer que des nombres "
+                    "ERREUR",
+                    "Vous ne pouvez rentrer que des nombres "
                     + "entre 1 et 9 !",
                 )
                 return []
@@ -110,12 +133,9 @@ class App:
         grid = self.splitGrid(grid)
         return grid
 
-    def splitGrid(self, grid: list) -> list:
-        return numpy.array_split(grid, int(len(grid) / self.chunkSize))
-
     def checkGrid(self, row: int, column: int, number: int, board: list) -> bool:
         if self.getGrid() is None:
-            messagebox.showerror("Erreur", "Votre grille est vide !")
+            messagebox.showerror("ERREUR", "Votre grille est vide !")
             return False
 
         for i in range(9):
@@ -134,6 +154,14 @@ class App:
                 if board[row + i][column + j] == number:
                     return False
         return True
+
+    def splitGrid(self, grid: list) -> list:
+        return numpy.array_split(grid, int(len(grid) / self.chunkSize))
+
+    def isEntryValid(self, entry: customtkinter.CTkEntry) -> bool:
+        if entry.get().isdigit() and int(entry.get()) > 0 and int(entry.get()) < 10:
+            return True
+        return False
 
     def resolveGrid(self, grid: list) -> None:
         self.calls += 1
@@ -161,36 +189,6 @@ class App:
         print(self.grid)
         return
 
-    def createGrid(self, panel: customtkinter.CTkFrame) -> None:
-        self.entries: list = []
-
-        for row in range(9):
-            for column in range(9):
-                entry: customtkinter.CTkEntry = customtkinter.CTkEntry(
-                    panel,
-                    width=30,
-                    height=30,
-                    font=customtkinter.CTkFont("Helvetica", 30, "bold"),
-                    border_width=2,
-                    corner_radius=0,
-                    justify="center",
-                )
-
-                pad_x: tuple = (0, 0)
-                pad_y: tuple = (0, 0)
-
-                if (column + 1) % 3 == 0 and (column + 1) < 9:
-                    pad_x = (0, 10)
-
-                if (row + 1) % 3 == 0 and (row + 1) < 9:
-                    pad_y = (0, 10)
-
-                entry.grid(
-                    row=row, column=column, ipadx=5, ipady=5, padx=pad_x, pady=pad_y
-                )
-
-                self.entries.append(entry)
-
     def runGridSolver(self, grid: list) -> None:
         try:
             self.grid: list = self.getGrid()
@@ -205,4 +203,4 @@ class App:
             self.resolveGrid(self.grid)
 
         except Exception:
-            messagebox.showerror("ERREUR", "Impossible de résoudre votre " + "grille !")
+            messagebox.showerror("ERREUR", "Impossible de résoudre votre grille !")
