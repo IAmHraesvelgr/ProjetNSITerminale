@@ -7,7 +7,7 @@ def main():
     customtkinter.set_default_color_theme("dark-blue")
 
     app = App("Résolveur de Sudoku", 1080, 720)
-    app.runApp()
+    app.run()
 
 
 if __name__ == "__main__":

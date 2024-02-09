@@ -11,7 +11,7 @@ class App:
         self.width: int = width
         self.height: int = height
 
-    def runApp(self) -> None:
+    def run(self) -> None:
         app: customtkinter.CTk = customtkinter.CTk()
         self.font: customtkinter.CTkFont = customtkinter.CTkFont("Helvetica", 25, "bold")
 
