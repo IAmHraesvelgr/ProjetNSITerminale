@@ -21,8 +21,6 @@ class App:
 
         self.createGrid(gridPanel)
         self.chunkSize: int = 9
-        self.grid: list = self.getGrid()
-        self.grid = [array.tolist() for array in self.grid]
         self.calls: int = 0
         self.breakSolve: int = 0
 
@@ -33,7 +31,7 @@ class App:
             width=300,
             height=50,
             font=self.font,
-            command=lambda: self.returnGrid(self.grid),
+            command=lambda: self.returnGrid(),
         )
 
         playMusic: customtkinter.IntVar = customtkinter.IntVar(app, 1)
@@ -110,24 +108,26 @@ class App:
 
                 self.entries.append(entry)
 
-    def getGrid(self) -> list:
-        grid: list = []
+    def getGrid(self) -> None:
+        self.grid: list = []
         entry: customtkinter.CTkEntry
         for entry in self.entries:
             if self.isEntryValid(entry):
-                grid.append(int(entry.get()))
+                self.grid.append(int(entry.get()))
             elif entry.get() == "":
-                grid.append(0)
+                self.grid.append(0)
             else:
                 messagebox.showerror(
                     "ERREUR",
                     "Vous ne pouvez rentrer que des nombres "
                     + "entre 1 et 9 !",
                 )
-                return []
+                
+                self.grid = []
+                return None
 
-        grid = self.splitGrid(grid)
-        return grid
+        self.grid = self.splitGrid(self.grid)
+        self.grid = [array.tolist() for array in self.grid]
 
     def splitGrid(self, grid: list) -> list:
         return numpy.array_split(grid, int(len(grid) / self.chunkSize))
@@ -141,7 +141,7 @@ class App:
         for x in range(9):
             for y in range(9):
                 print(grid[x][y], end=" ")
-            print()
+            print("\n")
 
     def resolveGrid(self, grid: list, row: int, col: int, num: int) -> bool:
         for x in range(9):
@@ -176,8 +176,9 @@ class App:
                 return True
         return False
 
-    def returnGrid(self, grid: list) -> None:
-        if self.runResolve(grid, 0, 0):
-            self.printGrid(grid)
+    def returnGrid(self) -> None:
+        self.getGrid()
+        if self.runResolve(self.grid, 0, 0):
+            self.printGrid(self.grid)
         else:
             print("No Solution :(")
