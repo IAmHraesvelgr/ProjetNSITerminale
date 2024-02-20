@@ -13,7 +13,9 @@ class App:
 
     def run(self) -> None:
         app: customtkinter.CTk = customtkinter.CTk()
-        self.font: customtkinter.CTkFont = customtkinter.CTkFont("Helvetica", 25, "bold")
+        self.font: customtkinter.CTkFont = customtkinter.CTkFont(
+            "Helvetica", 25, "bold"
+        )
 
         gridPanel: customtkinter.CTkFrame = customtkinter.CTkFrame(
             app, bg_color="transparent"
@@ -104,7 +106,9 @@ class App:
                 if (row + 1) % 3 == 0 and (row + 1) < 9:
                     pad_y = (0, 10)
 
-                entry.grid(row=row, column=column, ipadx=5, ipady=5, padx=pad_x, pady=pad_y)
+                entry.grid(
+                    row=row, column=column, ipadx=5, ipady=5, padx=pad_x, pady=pad_y
+                )
 
                 self.entries.append(entry)
 
@@ -119,10 +123,9 @@ class App:
             else:
                 messagebox.showerror(
                     "ERREUR",
-                    "Vous ne pouvez rentrer que des nombres "
-                    + "entre 1 et 9 !",
+                    "Vous ne pouvez rentrer que des nombres " + "entre 1 et 9 !",
                 )
-                
+
                 self.grid = []
                 return None
 
@@ -162,7 +165,7 @@ class App:
         return True
 
     def runResolve(self, grid: list, row: int, col: int) -> bool:
-        if (row == 9 - 1 and col == 9):
+        if row == 9 - 1 and col == 9:
             return True
         if col == 9:
             row += 1
