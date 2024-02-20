@@ -141,7 +141,7 @@ class App:
         for x in range(9):
             for y in range(9):
                 print(grid[x][y], end=" ")
-            print("\n")
+            print()
 
     def resolveGrid(self, grid: list, row: int, col: int, num: int) -> bool:
         for x in range(9):
