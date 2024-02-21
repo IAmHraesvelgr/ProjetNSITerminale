@@ -33,7 +33,7 @@ class App:
             width=300,
             height=50,
             font=self.font,
-            command=lambda: self.returnGrid(),
+            command=lambda: self.runSolver(),
         )
 
         playMusic: customtkinter.IntVar = customtkinter.IntVar(app, 1)
@@ -140,48 +140,70 @@ class App:
             return True
         return False
 
-    def printGrid(self, grid: list):
-        for x in range(9):
-            for y in range(9):
-                print(grid[x][y], end=" ")
-            print()
+    def printGrid(self, grid: list) -> None:
 
-    def resolveGrid(self, grid: list, row: int, col: int, num: int) -> bool:
-        for x in range(9):
-            if grid[row][x] == num:
+        for i in range(len(grid)):
+            if i % 3 == 0 and i != 0:
+                print("- - - - - - - - - - - - ")
+
+            for j in range(len(grid[0])):
+                if j % 3 == 0 and j != 0:
+                    print(" | ", end="")
+
+                if j == 8:
+                    print(grid[i][j])
+
+                else:
+                    print(str(grid[i][j]) + " ", end="")
+
+    def findEmptyCell(self, grid: list) -> tuple[int, int] | None:
+        self.getGrid()
+        for i in range(len(grid)):
+            for j in range(len(grid[0])):
+                if grid[i][j] == 0:
+                    return (i, j)
+        return None
+
+    def resolveGrid(self, grid: list) -> bool:
+        find: tuple | None = self.findEmptyCell(grid)
+        if not find:
+            return True
+        else:
+            row: int = find[0]
+            col: int = find[1]
+
+        for i in range(1, 10):
+            if self.isValid(self.grid, i, (row, col)):
+                self.grid[row][col] = i
+
+                if self.resolveGrid(self.grid):
+                    return True
+
+                self.grid[row][col] = 0
+
+        return False
+
+    def isValid(self, grid: list, number: int, pos: tuple) -> bool:
+        for i in range(len(grid[0])):
+            if grid[pos[0]][i] == number and pos[1] != i:
                 return False
 
-        for x in range(9):
-            if grid[x][col] == num:
+        for i in range(len(grid)):
+            if grid[i][pos[1]] == number and pos[0] != i:
                 return False
 
-        startRow: float = row - row % 3
-        startCol: float = col - col % 3
+        box_x: int = pos[1] // 3
+        box_y: int = pos[0] // 3
 
-        for i in range(3):
-            for j in range(3):
-                if grid[i + startRow][j + startCol] == num:
+        for i in range(box_y * 3, box_y * 3 + 3):
+            for j in range(box_x * 3, box_x * 3 + 3):
+                if grid[i][j] == number and (i, j) != pos:
                     return False
         return True
 
-    def runResolve(self, grid: list, row: int, col: int) -> bool:
-        if row == 9 - 1 and col == 9:
-            return True
-        if col == 9:
-            row += 1
-            col = 0
-        if grid[row][col] > 0:
-            return self.runResolve(grid, row, col + 1)
-        for num in range(1, 10, 1):
-            if self.resolveGrid(grid, row, col, num):
-                grid[row][col] = num
-            if self.runResolve(grid, row, col + 1):
-                return True
-        return False
-
-    def returnGrid(self) -> None:
+    def runSolver(self):
         self.getGrid()
-        if self.runResolve(self.grid, 0, 0):
-            self.printGrid(self.grid)
-        else:
-            print("No Solution :(")
+        self.printGrid(self.grid)
+        self.resolveGrid(self.grid)
+        print("___________________")
+        self.printGrid(self.grid)
