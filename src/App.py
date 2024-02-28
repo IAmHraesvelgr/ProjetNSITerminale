@@ -141,11 +141,10 @@ class App:
         return False
 
     def printGrid(self, grid: list) -> None:
-
         for i in range(len(grid)):
             if i % 3 == 0 and i != 0:
                 print("- - - - - - - - - - - - ")
-
+            
             for j in range(len(grid[0])):
                 if j % 3 == 0 and j != 0:
                     print(" | ", end="")
@@ -156,8 +155,7 @@ class App:
                 else:
                     print(str(grid[i][j]) + " ", end="")
 
-    def findEmptyCell(self, grid: list) -> tuple[int, int] | None:
-        self.getGrid()
+    def findEmptyCell(self, grid: list) -> tuple | None: 
         for i in range(len(grid)):
             for j in range(len(grid[0])):
                 if grid[i][j] == 0:
@@ -169,11 +167,10 @@ class App:
         if not find:
             return True
         else:
-            row: int = find[0]
-            col: int = find[1]
+            row, col = find
 
         for i in range(1, 10):
-            if self.isValid(self.grid, i, (row, col)):
+            if self.isGridValid(self.grid, i, (row, col)):
                 self.grid[row][col] = i
 
                 if self.resolveGrid(self.grid):
@@ -183,7 +180,7 @@ class App:
 
         return False
 
-    def isValid(self, grid: list, number: int, pos: tuple) -> bool:
+    def isGridValid(self, grid: list, number: int, pos: tuple) -> bool:
         for i in range(len(grid[0])):
             if grid[pos[0]][i] == number and pos[1] != i:
                 return False
