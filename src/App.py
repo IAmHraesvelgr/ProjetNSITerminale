@@ -198,9 +198,20 @@ class App:
                     return False
         return True
 
+    def formatGrid(self, grid: list) -> list:
+        return [j for sub in grid for j in sub]
+
+    def showGrid(self, grid: list) -> None:
+        entry: customtkinter.CTkEntry
+        i: int = 0
+        for entry in self.entries:
+            entry.delete(0, customtkinter.END)
+            entry.insert(0, grid[i])
+            i += 1
+
     def runSolver(self):
         self.getGrid()
-        self.printGrid(self.grid)
         self.resolveGrid(self.grid)
-        print("___________________")
-        self.printGrid(self.grid)
+        self.grid = self.formatGrid(self.grid)
+        print(self.grid)
+        self.showGrid(self.grid)
