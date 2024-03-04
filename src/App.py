@@ -213,5 +213,4 @@ class App:
         self.getGrid()
         self.resolveGrid(self.grid)
         self.grid = self.formatGrid(self.grid)
-        print(self.grid)
         self.showGrid(self.grid)
