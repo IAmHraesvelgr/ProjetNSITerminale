@@ -49,6 +49,13 @@ class App:
             ),
         )
 
+        resetButton: customtkinter.CTkButton = customtkinter.CTkButton(
+            app, 
+            text="Réinitialiser",
+            font=self.font,
+            command=lambda: self.resetGrid()
+        )
+
         app.minsize(self.width, self.height)
         app.title(self.title)
         app.resizable(False, False)
@@ -60,8 +67,9 @@ class App:
         inputLabel.pack(pady=15)
         gridPanel.pack(pady=35)
 
-        resolveGrid.pack(pady=20, side=customtkinter.BOTTOM)
+        resolveGrid.pack(pady=25, side=customtkinter.BOTTOM)
         musicButton.pack(side=customtkinter.RIGHT)
+        resetButton.pack(side=customtkinter.LEFT, padx=5)
 
         if os.name == "nt":
             import pywinstyles
@@ -81,6 +89,12 @@ class App:
             pygame.mixer.music.set_volume(0.3)
         else:
             pygame.mixer.music.stop()
+
+    def resetGrid(self) -> None:
+        entry: customtkinter.CTkEntry
+        for entry in self.entries:
+            entry.delete(0, customtkinter.END)
+            entry.insert(0, "")
 
     def createGrid(self, panel: customtkinter.CTkFrame) -> None:
         self.entries: list = []
@@ -144,7 +158,7 @@ class App:
         for i in range(len(grid)):
             if i % 3 == 0 and i != 0:
                 print("- - - - - - - - - - - - ")
-            
+
             for j in range(len(grid[0])):
                 if j % 3 == 0 and j != 0:
                     print(" | ", end="")
@@ -155,7 +169,7 @@ class App:
                 else:
                     print(str(grid[i][j]) + " ", end="")
 
-    def findEmptyCell(self, grid: list) -> tuple | None: 
+    def findEmptyCell(self, grid: list) -> tuple | None:
         for i in range(len(grid)):
             for j in range(len(grid[0])):
                 if grid[i][j] == 0:
@@ -210,7 +224,12 @@ class App:
             i += 1
 
     def runSolver(self):
-        self.getGrid()
+        try:
+            self.getGrid()
+        except:
+            messagebox.showerror("Impossible de lire votre grille !")
+
         self.resolveGrid(self.grid)
+
         self.grid = self.formatGrid(self.grid)
         self.showGrid(self.grid)
