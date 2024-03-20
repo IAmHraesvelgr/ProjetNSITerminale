@@ -50,7 +50,7 @@ class App:
         )
 
         resetButton: customtkinter.CTkButton = customtkinter.CTkButton(
-            app, 
+            app,
             text="Réinitialiser",
             font=self.font,
             command=lambda: self.resetGrid()
