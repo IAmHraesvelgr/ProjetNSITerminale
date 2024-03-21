@@ -10,7 +10,7 @@ Une réalisation du projet de terminale proposé par la spécialité Numérique 
 
 + **[Visual Studio Code](https://code.visualstudio.com/)**
 
-+ **Neovim(https://neovim.io/)** + **NvChad(https://github.com/NvChad/NvChad)**
++ **[Neovim](https://neovim.io/)** + **[NvChad](https://github.com/NvChad/NvChad)**
 
 + **[Git Cli](https://git-scm.com/)**
 
