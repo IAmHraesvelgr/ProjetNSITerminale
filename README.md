@@ -8,9 +8,9 @@ Une réalisation du projet de terminale proposé par la spécialité Numérique 
 
 + **[C++](https://fr.wikipedia.org/wiki/C%2B%2B)**
 
-+ **[Visual Studio Code](https://code.visualstudio.com/)**
++ **[Visual Studio Code](https://code.visualstudio.com/) (très peu utilisé pour ce projet)**
 
-+ **[Neovim](https://neovim.io/)** + **[NvChad](https://github.com/NvChad/NvChad)**
++ **[Neovim](https://neovim.io/)** + **[NvChad](https://github.com/NvChad/NvChad) (éditeur de texte principalement utilisé pour ce projet)**
 
 + **[Git Cli](https://git-scm.com/)**
 
