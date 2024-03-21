@@ -17,59 +17,59 @@ class App:
             "Helvetica", 25, "bold"
         )
 
-        gridPanel: customtkinter.CTkFrame = customtkinter.CTkFrame(
+        grid_panel: customtkinter.CTkFrame = customtkinter.CTkFrame(
             app, bg_color="transparent"
         )
 
-        self.createGrid(gridPanel)
-        self.chunkSize: int = 9
+        self.create_grid(grid_panel)
+        self.chunk_size: int = 9
         self.calls: int = 0
-        self.breakSolve: int = 0
+        self.break_solve: int = 0
 
-        resolveGrid: customtkinter.CTkButton = customtkinter.CTkButton(
+        resolve_grid: customtkinter.CTkButton = customtkinter.CTkButton(
             app,
             text="Résoudre la Grille",
             corner_radius=32,
             width=300,
             height=50,
             font=self.font,
-            command=lambda: self.runSolver(),
+            command=lambda: self.run_solver(),
         )
 
-        playMusic: customtkinter.IntVar = customtkinter.IntVar(app, 1)
-        self.playBackgroundMusic(playMusic)
-        musicButton: customtkinter.CTkCheckBox = customtkinter.CTkCheckBox(
+        play_music: customtkinter.IntVar = customtkinter.IntVar(app, 1)
+        self.play_background_music(play_music)
+        music_button: customtkinter.CTkCheckBox = customtkinter.CTkCheckBox(
             app,
             text="Musique",
             onvalue=1,
             offvalue=0,
-            variable=playMusic,
-            command=lambda shouldPlayMusic=playMusic: self.playBackgroundMusic(
-                shouldPlayMusic
+            variable=play_music,
+            command=lambda should_play_music=play_music: self.play_background_music(
+                should_play_music
             ),
         )
 
-        resetButton: customtkinter.CTkButton = customtkinter.CTkButton(
+        reset_button: customtkinter.CTkButton = customtkinter.CTkButton(
             app,
             text="Réinitialiser",
             font=self.font,
-            command=lambda: self.resetGrid()
+            command=lambda: self.reset_grid()
         )
 
         app.minsize(self.width, self.height)
         app.title(self.title)
         app.resizable(False, False)
 
-        inputLabel: customtkinter.CTkLabel = customtkinter.CTkLabel(
+        input_label: customtkinter.CTkLabel = customtkinter.CTkLabel(
             app, font=self.font, text="Entrez la grille de Sudoku à résoudre : "
         )
 
-        inputLabel.pack(pady=15)
-        gridPanel.pack(pady=35)
+        input_label.pack(pady=15)
+        grid_panel.pack(pady=35)
 
-        resolveGrid.pack(pady=25, side=customtkinter.BOTTOM)
-        musicButton.pack(side=customtkinter.RIGHT)
-        resetButton.pack(side=customtkinter.LEFT, padx=5)
+        resolve_grid.pack(pady=25, side=customtkinter.BOTTOM)
+        music_button.pack(side=customtkinter.RIGHT)
+        reset_button.pack(side=customtkinter.LEFT, padx=5)
 
         if os.name == "nt":
             import pywinstyles
@@ -78,25 +78,25 @@ class App:
 
         app.mainloop()
 
-    def playBackgroundMusic(self, playMusic: customtkinter.IntVar) -> None:
+    def play_background_music(self, play_music: customtkinter.IntVar) -> None:
         pygame.mixer.init()
         pygame.mixer.music.load(
             os.path.dirname(os.path.relpath(__file__))
             + "/../resources/backgroundmusic.mp3"
         )
-        if playMusic.get():
+        if play_music.get():
             pygame.mixer.music.play(-1)
             pygame.mixer.music.set_volume(0.3)
         else:
             pygame.mixer.music.stop()
 
-    def resetGrid(self) -> None:
+    def reset_grid(self) -> None:
         entry: customtkinter.CTkEntry
         for entry in self.entries:
             entry.delete(0, customtkinter.END)
             entry.insert(0, "")
 
-    def createGrid(self, panel: customtkinter.CTkFrame) -> None:
+    def create_grid(self, panel: customtkinter.CTkFrame) -> None:
         self.entries: list = []
 
         for row in range(9):
@@ -126,11 +126,11 @@ class App:
 
                 self.entries.append(entry)
 
-    def getGrid(self) -> None:
+    def get_grid(self) -> None:
         self.grid: list = []
         entry: customtkinter.CTkEntry
         for entry in self.entries:
-            if self.isEntryValid(entry):
+            if self.is_entry_valid(entry):
                 self.grid.append(int(entry.get()))
             elif entry.get() == "":
                 self.grid.append(0)
@@ -143,18 +143,18 @@ class App:
                 self.grid = []
                 return None
 
-        self.grid = self.splitGrid(self.grid)
+        self.grid = self.split_grid(self.grid)
         self.grid = [array.tolist() for array in self.grid]
 
-    def splitGrid(self, grid: list) -> list:
-        return numpy.array_split(grid, int(len(grid) / self.chunkSize))
+    def split_grid(self, grid: list) -> list:
+        return numpy.array_split(grid, int(len(grid) / self.chunk_size))
 
-    def isEntryValid(self, entry: customtkinter.CTkEntry) -> bool:
+    def is_entry_valid(self, entry: customtkinter.CTkEntry) -> bool:
         if entry.get().isdigit() and int(entry.get()) > 0 and int(entry.get()) < 10:
             return True
         return False
 
-    def printGrid(self, grid: list) -> None:
+    def print_grid(self, grid: list) -> None:
         for i in range(len(grid)):
             if i % 3 == 0 and i != 0:
                 print("- - - - - - - - - - - - ")
@@ -169,32 +169,32 @@ class App:
                 else:
                     print(str(grid[i][j]) + " ", end="")
 
-    def findEmptyCell(self, grid: list) -> tuple | None:
+    def find_empty_cell(self, grid: list) -> tuple | None:
         for i in range(len(grid)):
             for j in range(len(grid[0])):
                 if grid[i][j] == 0:
                     return (i, j)
         return None
 
-    def resolveGrid(self, grid: list) -> bool:
-        find: tuple | None = self.findEmptyCell(grid)
+    def resolve_grid(self, grid: list) -> bool:
+        find: tuple | None = self.find_empty_cell(grid)
         if not find:
             return True
         else:
             row, col = find
 
         for i in range(1, 10):
-            if self.isGridValid(self.grid, i, (row, col)):
+            if self.is_grid_valid(self.grid, i, (row, col)):
                 self.grid[row][col] = i
 
-                if self.resolveGrid(self.grid):
+                if self.resolve_grid(self.grid):
                     return True
 
                 self.grid[row][col] = 0
 
         return False
 
-    def isGridValid(self, grid: list, number: int, pos: tuple) -> bool:
+    def is_grid_valid(self, grid: list, number: int, pos: tuple) -> bool:
         for i in range(len(grid[0])):
             if grid[pos[0]][i] == number and pos[1] != i:
                 return False
@@ -212,10 +212,10 @@ class App:
                     return False
         return True
 
-    def formatGrid(self, grid: list) -> list:
+    def format_grid(self, grid: list) -> list:
         return [j for sub in grid for j in sub]
 
-    def showGrid(self, grid: list) -> None:
+    def show_grid(self, grid: list) -> None:
         entry: customtkinter.CTkEntry
         i: int = 0
         for entry in self.entries:
@@ -223,13 +223,13 @@ class App:
             entry.insert(0, grid[i])
             i += 1
 
-    def runSolver(self):
+    def run_solver(self):
         try:
-            self.getGrid()
+            self.get_grid()
         except:
             messagebox.showerror("Impossible de lire votre grille !")
 
-        self.resolveGrid(self.grid)
+        self.resolve_grid(self.grid)
 
-        self.grid = self.formatGrid(self.grid)
-        self.showGrid(self.grid)
+        self.grid = self.format_grid(self.grid)
+        self.show_grid(self.grid)
