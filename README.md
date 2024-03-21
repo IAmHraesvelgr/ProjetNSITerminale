@@ -6,11 +6,11 @@ Une réalisation du projet de terminale proposé par la spécialité Numérique 
 
 + **[Python](https://python.org/)**
 
-+ **[C++]("https://fr.wikipedia.org/wiki/C%2B%2B")**
++ **[C++](https://fr.wikipedia.org/wiki/C%2B%2B)**
 
 + **[Visual Studio Code](https://code.visualstudio.com/)**
 
-+ **Neovim("https://neovim.io/") + NvChad("https://github.com/NvChad/NvChad")**
++ **Neovim(https://neovim.io/)** + **NvChad(https://github.com/NvChad/NvChad)**
 
 + **[Git Cli](https://git-scm.com/)**
 
