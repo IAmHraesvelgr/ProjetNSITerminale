@@ -6,7 +6,11 @@ Une réalisation du projet de terminale proposé par la spécialité Numérique 
 
 + **[Python](https://python.org/)**
 
++ **[C++]("https://fr.wikipedia.org/wiki/C%2B%2B")**
+
 + **[Visual Studio Code](https://code.visualstudio.com/)**
+
++ **Neovim("https://neovim.io/") + NvChad("https://github.com/NvChad/NvChad")**
 
 + **[Git Cli](https://git-scm.com/)**
 
@@ -26,11 +30,13 @@ Une réalisation du projet de terminale proposé par la spécialité Numérique 
 
 **OS**
 
+**PyWinStyles**
+
 ## FAQ
 
 ### Comment lancer le programme ?
 
-Pour lancer le programme, il faut une version de **[Python](https://python.org)** installée avec **tkinter** et **pip**. En fonction du système d'exploitation, il faut lancer le fichier `run.bat` sur Windows et le fichier `run.sh` sur Mac et Linux. C'est un fichier de commande qui permettra d'installer automatiquement les bibliothèques requises par le programme, puis de l'exécuter.
+Pour lancer le programme, il faut une version de **[Python](https://python.org)** installée avec **tkinter** et **pip**. En fonction du système d'exploitation, il faut lancer le fichier `run.exe` sur Windows et le fichier `run.out` sur Mac et Linux (recompilation manuelle pour plus de sécurité possible). C'est un exécutable qui permettra d'installer automatiquement les bibliothèques requises par le programme, puis de l'exécuter.
 
 ### Le programme ne fonctionne pas. Que faire ?
 
@@ -44,4 +50,4 @@ Il faut s'assurer que la version de **[Python](https://python.org)** utilisée e
 
 + [Geeks For Geeks](https://www.geeksforgeeks.org/)
 
-+ [Spark By {Exemples}](https://sparkbyexamples.com/)
++ [Tech With Tim](https://www.techwithtim.net/)
